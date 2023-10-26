@@ -1,0 +1,208 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.7.2 (swiftlang-5.7.2.135.5 clang-1400.0.29.51)
+// swift-module-flags: -target arm64-apple-ios13.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name MobaiBiometric
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import AVKit
+import CoreMedia
+import Foundation
+@_exported import MobaiBiometric
+import Swift
+import UIKit
+import VideoToolbox
+import Vision
+import _Concurrency
+import _StringProcessing
+extension QuartzCore.CALayer {
+  public static func faceMaks(size: CoreFoundation.CGSize, widthRatio: CoreFoundation.CGFloat = 0.8, faceAspectRatio: CoreFoundation.CGFloat = 1.3, verticalPositionRatio: CoreFoundation.CGFloat = 0.1) -> QuartzCore.CALayer
+}
+@objc public enum MBCaptureSessionError : Swift.Int, Swift.Error {
+  case cameraUnavailable
+  case cannotAddInput
+  case cannotAddOutput
+  case orientationNotSupported
+  case setPreset
+  case createCaptureInput
+  case somethingWentWrong
+  case noFaceDetected
+  case none
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public static var _nsErrorDomain: Swift.String {
+    get
+  }
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension MobaiBiometric.MBCaptureSessionError : Foundation.LocalizedError {
+  public var errorDescription: Swift.String? {
+    get
+  }
+}
+@_hasMissingDesignatedInitializers public class MBCameraHelper {
+  public static func image(named: Swift.String) -> UIKit.UIImage?
+  @objc deinit
+}
+public struct MBCaptureSessionOptions {
+  public var autoCaptureEnabled: Swift.Bool
+  public var isDebugging: Swift.Bool
+  public var numberOfFramesBeforeCapture: Swift.Int
+  public var numberOfFrameToCollect: Swift.Int
+  public var frameInterval: Swift.Int
+  public var timeBeforeAutomaticCapture: Swift.Int
+  public var cameraPosition: MobaiBiometric.CameraPostion
+  public init(autoCaptureEnabled: Swift.Bool = true, numberOfFramesBeforeCapture: Swift.Int = 10, numberOfFrameToCollect: Swift.Int = 3, frameInterval: Swift.Int = 10, faceQualityEnabled: Swift.Bool = false, isDebugging: Swift.Bool = false, timeBeforeAutomaticCapture: Swift.Int = 4, cameraPosition: MobaiBiometric.CameraPostion = .front, presentedDismissButtonEnabled: Swift.Bool = false, targetResolutionPad: MobaiBiometric.MBTargetResolution = .hd1280x720, previewScaleType: MobaiBiometric.MBPreviewScaleType = .fill)
+  public init(dictionaryOptions: Foundation.NSDictionary)
+}
+public enum CameraPostion : Swift.Int {
+  case back
+  case front
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum MBPreviewScaleType : Swift.Int {
+  case fill
+  case fit
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum MBCaptureSessionStatus : Swift.Equatable {
+  case waiting
+  case ready
+  case startedCapturing
+  case finishedCapturing
+  case readyToCapture
+  case faceStatus(MobaiBiometric.DetectedFaceStatus)
+  public static func == (a: MobaiBiometric.MBCaptureSessionStatus, b: MobaiBiometric.MBCaptureSessionStatus) -> Swift.Bool
+}
+@objc public enum DetectedFaceStatus : Swift.Int, Swift.Equatable {
+  case faceToSmall
+  case faceToLarge
+  case tooFarUp
+  case tooFarDown
+  case tooFarLeft
+  case tooFarRight
+  case faceNotFound
+  case mouthNotFound
+  case validFace
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol MBCaptureSessionDelegate {
+  @objc func onInitializing()
+  @objc func onValidation(_ status: MobaiBiometric.DetectedFaceStatus)
+  @objc func onCountDown(time: Swift.Int)
+  @objc func onCapturing()
+  @objc func onCaptureProgress(captureProgressCounter: Swift.Float)
+  @objc func onSuccess(result: MobaiBiometric.MBCaptureSessionResult)
+  @objc func onFailure(error: MobaiBiometric.MBCaptureSessionError)
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class MBCaptureSessionView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var delegate: MobaiBiometric.MBCaptureSessionDelegate?
+  @_Concurrency.MainActor(unsafe) public init(options: MobaiBiometric.MBCaptureSessionOptions)
+  @_Concurrency.MainActor(unsafe) public func takePicture()
+  @_Concurrency.MainActor(unsafe) public func onStartCapturing()
+  @_Concurrency.MainActor(unsafe) public func onUpdate(options: MobaiBiometric.MBCaptureSessionOptions)
+  @_Concurrency.MainActor(unsafe) public func onStopCapturing()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @objc deinit
+}
+@objc public protocol MBCaptureSessionVCDelegate {
+  @objc func onSuccess(result: MobaiBiometric.MBCaptureSessionResult)
+  @objc func onFailure(error: MobaiBiometric.MBCaptureSessionError)
+  @objc func onPresentedDismissTapped()
+}
+@_hasMissingDesignatedInitializers @objc public class MBCaptureSessionResult : ObjectiveC.NSObject {
+  public var faceImage: Foundation.Data
+  public var padData: [Foundation.Data]
+  public func serializedData() throws -> Foundation.Data
+  @objc deinit
+}
+@objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class MBCaptureSessionViewController : UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) public var delegate: MobaiBiometric.MBCaptureSessionVCDelegate?
+  @_Concurrency.MainActor(unsafe) public init(options: MobaiBiometric.MBCaptureSessionOptions)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @objc deinit
+}
+extension MobaiBiometric.MBCaptureSessionViewController : MobaiBiometric.MBCaptureSessionDelegate {
+  @_Concurrency.MainActor(unsafe) public func onPresentedDismissTapped()
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onInitializing()
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onValidation(_ status: MobaiBiometric.DetectedFaceStatus)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onCountDown(time: Swift.Int)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onCapturing()
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onSuccess(result: MobaiBiometric.MBCaptureSessionResult)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onFailure(error: MobaiBiometric.MBCaptureSessionError)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func onCaptureProgress(captureProgressCounter: Swift.Float)
+}
+@objc @_hasMissingDesignatedInitializers public class MBFrameProcessorPayload : ObjectiveC.NSObject {
+  public var faceImage: Foundation.Data
+  public var padData: [Foundation.Data]
+  @objc deinit
+}
+public enum OvalStrokeColorSelected {
+  case red
+  case green
+  case yellow
+  public static func == (a: MobaiBiometric.OvalStrokeColorSelected, b: MobaiBiometric.OvalStrokeColorSelected) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+@objc @_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class MBOvalOverlayView : UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public var overlayFrame: CoreFoundation.CGRect
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) public func updateOvalStrokeColor(_ color: MobaiBiometric.OvalStrokeColorSelected)
+  @objc deinit
+}
+public enum MBTargetResolution : Swift.String {
+  case hd1280x720
+  case hd1920x1080
+  case hd4K3840x2160
+  case qHD960x540
+  public init?(rawValue: Swift.String)
+  public typealias RawValue = Swift.String
+  public var rawValue: Swift.String {
+    get
+  }
+}
+extension UIKit.UIColor {
+  public static let primaryColor: UIKit.UIColor
+  public static let secondaryColor: UIKit.UIColor
+}
+extension UIKit.UIView {
+  @_Concurrency.MainActor(unsafe) public func fillSuperView()
+  @_Concurrency.MainActor(unsafe) public func anchorTo(top: UIKit.NSLayoutYAxisAnchor? = nil, leading: UIKit.NSLayoutXAxisAnchor? = nil, bottom: UIKit.NSLayoutYAxisAnchor? = nil, trailing: UIKit.NSLayoutXAxisAnchor? = nil, padding: UIKit.UIEdgeInsets = .zero, size: CoreFoundation.CGSize = .zero, centerX: UIKit.NSLayoutXAxisAnchor? = nil, centerY: UIKit.NSLayoutYAxisAnchor? = nil)
+}
+extension UIKit.UIViewController {
+  @_Concurrency.MainActor(unsafe) public func presentAlertWithTitle(title: Swift.String, message: Swift.String, options: Swift.String..., completion: @escaping (Swift.Int) -> Swift.Void)
+}
+extension MobaiBiometric.MBCaptureSessionError : Swift.Equatable {}
+extension MobaiBiometric.MBCaptureSessionError : Swift.Hashable {}
+extension MobaiBiometric.MBCaptureSessionError : Swift.RawRepresentable {}
+extension MobaiBiometric.CameraPostion : Swift.Equatable {}
+extension MobaiBiometric.CameraPostion : Swift.Hashable {}
+extension MobaiBiometric.CameraPostion : Swift.RawRepresentable {}
+extension MobaiBiometric.MBPreviewScaleType : Swift.Equatable {}
+extension MobaiBiometric.MBPreviewScaleType : Swift.Hashable {}
+extension MobaiBiometric.MBPreviewScaleType : Swift.RawRepresentable {}
+extension MobaiBiometric.DetectedFaceStatus : Swift.Hashable {}
+extension MobaiBiometric.DetectedFaceStatus : Swift.RawRepresentable {}
+extension MobaiBiometric.OvalStrokeColorSelected : Swift.Equatable {}
+extension MobaiBiometric.OvalStrokeColorSelected : Swift.Hashable {}
+extension MobaiBiometric.MBTargetResolution : Swift.Equatable {}
+extension MobaiBiometric.MBTargetResolution : Swift.Hashable {}
+extension MobaiBiometric.MBTargetResolution : Swift.RawRepresentable {}
