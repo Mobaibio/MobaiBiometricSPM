@@ -1,0 +1,11 @@
+framework module MobaiBiometric {
+  umbrella header "MobaiBiometric-umbrella.h"
+
+  export *
+  module * { export * }
+}
+
+module MobaiBiometric.Swift {
+  header "MobaiBiometric-Swift.h"
+  requires objc
+}
