@@ -1,2 +1,2 @@
 # MobaiBiometricSPM
-dele me
+dele test
