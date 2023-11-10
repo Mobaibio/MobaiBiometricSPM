@@ -3,7 +3,7 @@
 
 import MobaiBiometric
 
-public struct MBCaptureSessionResultAdapter {
+static public struct MBCaptureSessionResultAdapter {
     public init() { }
     
     public func serializedData(result: MBCaptureSessionResult) throws -> Data {
