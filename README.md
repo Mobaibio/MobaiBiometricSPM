@@ -1,1 +1,8 @@
-# MobaiBiometricSPM
+# Mobai Biometrics module for Swift Package Manager
+
+SPM version of Mobai birometrics 
+# Installation
+You can add MobaiBiometricd to an Xcode project by adding it as a package dependency.
+
+1. From the File menu, select Add Packages...
+2. Enter "https://github.com/Mobaibio/MobaiBiometricSPM" into the package repository URL text field
