@@ -4,6 +4,8 @@
 import MobaiBiometric
 
 public struct MBCaptureSessionResultAdapter {
+    public init() { }
+    
     public func serializedData(result: MBCaptureSessionResult) throws -> Data {
         var requestBody = Mobai_BiometricRequest()
         requestBody.recognitionRequest.probeImage = result.faceImage
