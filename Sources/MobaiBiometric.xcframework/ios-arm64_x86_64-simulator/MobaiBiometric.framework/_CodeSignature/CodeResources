@@ -10,7 +10,7 @@
 		</data>
 		<key>Headers/MobaiBiometric-Swift.h</key>
 		<data>
-		M+hCllml7bP/Jjz0qrhs1r6Y9cU=
+		XflcSIjArLQjnSPf6Y/7fCD5Fm4=
 		</data>
 		<key>Headers/MobaiBiometric-umbrella.h</key>
 		<data>
@@ -22,43 +22,43 @@
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		uwu3BLAAGhFJb0GwyY37NXfV0ks=
+		/gxG1P9SEJwzvHT8kFkXWks7088=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		YpOx+5MwA6w9WT0cp8b7kLMVYgA=
+		m+Ik5PgO1QnNN4OgmO3YV34+W14=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		aIpHWloJUEW/EE7AD/8mD3utWQ8=
+		hazgLZYuYXMWrXiOTnb0wIBsVq8=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		YpOx+5MwA6w9WT0cp8b7kLMVYgA=
+		m+Ik5PgO1QnNN4OgmO3YV34+W14=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		pTo8qG6cP63/BNUkVCQMdG6mTdo=
+		WHPjlu+wRE4yYALy17HU/B2UofM=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		uwu3BLAAGhFJb0GwyY37NXfV0ks=
+		/gxG1P9SEJwzvHT8kFkXWks7088=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		GaQskJQvXyY/BFOX8wptKsfTIr4=
+		OAFXo3s2LKX6ZQk1s1tOiRkWC7o=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		3V0shm/Je7WmM9iJp5tbyjJP/yc=
+		bP9yj7LZA/d+ZJ9loVyIyktpqTE=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		GaQskJQvXyY/BFOX8wptKsfTIr4=
+		OAFXo3s2LKX6ZQk1s1tOiRkWC7o=
 		</data>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		JCqNW9cz8qZYNsMofEPFnW6QDTc=
+		RrSKdn4F4hlDvin03yUPEHnuTTY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -78,7 +78,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NSzORk1CMqGFz7vwvYH6X5C+fssTBl3uqn0W14M/VKw=
+			CT3kEuyXWc1dj3s21EUrkYoVNxxSPHOJBT0czWIYXsQ=
 			</data>
 		</dict>
 		<key>Headers/MobaiBiometric-umbrella.h</key>
@@ -92,70 +92,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			xw4NpzmRX1aKOW5AusTJoNybtGZLJI6rVF+uLpITdZw=
+			xI2kWVAxlDH2iMyU+ftwTqU2byhyUb+13FKW97v1j5o=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			azjU2ZdClk1hAygQ4Dxt2BTYvk+4zGTwcl7qseq3sCA=
+			2LG4jhd3udjvcxS/vENahFpJTnYNP9uRP02VHqWsMEQ=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			R78fzczrZvcVle9jEp0YYRpF21J3MjG7r+ozBxoTssk=
+			sB3uxGCIt0kDRuy7zjNmB/0opaaqE/KE3Vugmw8zt9o=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			azjU2ZdClk1hAygQ4Dxt2BTYvk+4zGTwcl7qseq3sCA=
+			2LG4jhd3udjvcxS/vENahFpJTnYNP9uRP02VHqWsMEQ=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yf8akWeWUF/nn8HGbjJelbfP2uDhShBpYij8Inr8hmY=
+			HmlmXPsgHWROXO31vtu9vkX48CbINylg5hVqkifWRkw=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			xw4NpzmRX1aKOW5AusTJoNybtGZLJI6rVF+uLpITdZw=
+			xI2kWVAxlDH2iMyU+ftwTqU2byhyUb+13FKW97v1j5o=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AfkHo3OuDfMzzFZac+epZbHADlA0tKTjEs6fhzWsWPM=
+			64o4PMmFRCGjNJ+guLLRtCtrGK7POOui99vLQSKOGlI=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			E+/wIKtljx/cgzqV9fGnqO+COOSGboUTQPJZX3ads/c=
+			4u4DNU3fng+YQDZzr8esfB6Tzpy+i0qif+fbOBQaXf4=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			AfkHo3OuDfMzzFZac+epZbHADlA0tKTjEs6fhzWsWPM=
+			64o4PMmFRCGjNJ+guLLRtCtrGK7POOui99vLQSKOGlI=
 			</data>
 		</dict>
 		<key>Modules/MobaiBiometric.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			V+6oAVm7Q7fF6NN0Olp+ZKG95j8eQ6VRdhKD6flp7Hk=
+			ZR+JuGnS15HhZ2SYQQn+KJOOvv3mThzmqTqHhpbXgfI=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

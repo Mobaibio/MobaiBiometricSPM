@@ -15,6 +15,9 @@ import Vision
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+public protocol MBBoundingBoxFaceValidatorDelegate {
+  func onValidating(_ faceStatus: Swift.Result<MobaiBiometric.MBFaceGeometryModel, MobaiBiometric.MBFaceBoundingBoxStatus>)
+}
 extension QuartzCore.CALayer {
   public static func faceMaks(size: CoreFoundation.CGSize, widthRatio: CoreFoundation.CGFloat = 0.8, faceAspectRatio: CoreFoundation.CGFloat = 1.3, verticalPositionRatio: CoreFoundation.CGFloat = 0.1) -> QuartzCore.CALayer
 }
@@ -42,6 +45,10 @@ extension MobaiBiometric.MBCaptureSessionError : Foundation.LocalizedError {
     get
   }
 }
+public enum MBFaceModelEnum {
+  case faceBoundingBoxStatus(MobaiBiometric.MBFaceBoundingBoxStatus)
+  case faceStatus(MobaiBiometric.MBFaceStatus)
+}
 public struct MBCameraOptions {
   public var targetResolution: MobaiBiometric.MBTargetResolution
   public var previewScaleType: MobaiBiometric.MBPreviewScaleType
@@ -55,6 +62,15 @@ public struct MBCameraPermissionAlert {
 public enum MBCameraPosition : Swift.Int {
   case rear
   case front
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public enum MBCaptureConstraints : Swift.Int {
+  case v1
+  case v2
   public init?(rawValue: Swift.Int)
   public typealias RawValue = Swift.Int
   public var rawValue: Swift.Int {
@@ -76,12 +92,15 @@ public struct MBCaptureSessionOptions {
   public var isDebugging: Swift.Bool
   public var payloadOptimization: Swift.Bool
   public var cameraQuality: MobaiBiometric.MBCameraOptions
-  public init(autoCaptureEnabled: Swift.Bool = true, numberOfFrameToCollect: Swift.Int = 3, timeBeforeAutomaticCapture: Swift.Int = 1, isDebugging: Swift.Bool = false, payloadOptimization: Swift.Bool = false, cameraQuality: MobaiBiometric.MBCameraOptions = .init())
+  public var captureConstraints: MobaiBiometric.MBCaptureConstraints
+  public init(autoCaptureEnabled: Swift.Bool = true, numberOfFrameToCollect: Swift.Int = 3, timeBeforeAutomaticCapture: Swift.Int = 1, isDebugging: Swift.Bool = false, payloadOptimization: Swift.Bool = false, cameraQuality: MobaiBiometric.MBCameraOptions = .init(), captureConstraints: MobaiBiometric.MBCaptureConstraints = .v1)
   public init(dictionaryOptions: Foundation.NSDictionary)
 }
 @objc @_hasMissingDesignatedInitializers public class MBCaptureSessionResult : ObjectiveC.NSObject {
   public var faceImage: Foundation.Data
   public var padData: [Foundation.Data]
+  public var versionId: Swift.String
+  public var framesMetadata: [MobaiBiometric.MBFaceGeometryModel]
   public func arrayWithFaceImage() -> [Foundation.Data]
   @objc deinit
 }
@@ -137,6 +156,7 @@ public enum MBCaptureState {
   @_Concurrency.MainActor(unsafe) public var captureSessionDelegate: (any MobaiBiometric.MBCaptureSessionDelegate)?
   @_Concurrency.MainActor(unsafe) public var countDownDelegate: (any MobaiBiometric.MBCountDownDelegate)?
   @_Concurrency.MainActor(unsafe) public var validatingDelegate: (any MobaiBiometric.MBOnValidatingDelegate)?
+  @_Concurrency.MainActor(unsafe) public var boundingBoxFaceValidatorDelegate: (any MobaiBiometric.MBBoundingBoxFaceValidatorDelegate)?
   @_Concurrency.MainActor(unsafe) public var progressDelegate: (any MobaiBiometric.MBCaptureProgressDelegate)?
   @_Concurrency.MainActor(unsafe) public init(options: MobaiBiometric.MBCaptureSessionOptions)
   @_Concurrency.MainActor(unsafe) public func takePicture()
@@ -145,15 +165,16 @@ public enum MBCaptureState {
   @_Concurrency.MainActor(unsafe) public func onStopCapturing()
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) public func calculateScalePreview() -> CoreFoundation.CGRect
   @objc deinit
 }
 @objc @_hasMissingDesignatedInitializers @_Concurrency.MainActor(unsafe) public class MBCaptureSessionViewController : UIKit.UIViewController {
   @_Concurrency.MainActor(unsafe) public var delegate: (any MobaiBiometric.MBCaptureSessionVCDelegate)?
   @_Concurrency.MainActor(unsafe) public init(with captureSessionOptions: MobaiBiometric.MBCaptureSessionOptions, style: MobaiBiometric.MBUIOptions)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) public func setBindings()
   @_Concurrency.MainActor(unsafe) public func onUpdate(with captureSessionOptions: MobaiBiometric.MBCaptureSessionOptions, style: MobaiBiometric.MBUIOptions)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
-  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillLayoutSubviews()
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
   @objc deinit
@@ -169,8 +190,56 @@ extension MobaiBiometric.MBCaptureSessionViewController : MobaiBiometric.MBCaptu
   @_Concurrency.MainActor(unsafe) public func onCaptureProgress(captureProgressCounter: Swift.Float)
   @_Concurrency.MainActor(unsafe) public func onStateChanged(captureState: MobaiBiometric.MBCaptureState)
 }
+extension MobaiBiometric.MBCaptureSessionViewController : MobaiBiometric.MBBoundingBoxFaceValidatorDelegate {
+  @_Concurrency.MainActor(unsafe) public func onValidating(_ faceStatus: Swift.Result<MobaiBiometric.MBFaceGeometryModel, MobaiBiometric.MBFaceBoundingBoxStatus>)
+}
 public protocol MBCountDownDelegate {
   func onCountDown(timeCounter: Swift.Int)
+}
+public struct MBFaceBoundingBoxStatus : Swift.Error {
+  public var distanceError: MobaiBiometric.MBDistanceError?
+  public var positionalError: [MobaiBiometric.MBPositionalError]?
+  public var poseError: [MobaiBiometric.MBPoseError]?
+  public var isValidStatus: Swift.Bool {
+    get
+  }
+}
+public enum MBPoseError {
+  case yawExcessiveFaceRotation
+  case rollExcessiveFaceRotation
+  case pitchExcessiveFaceRotation
+  public static func == (a: MobaiBiometric.MBPoseError, b: MobaiBiometric.MBPoseError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum MBDistanceError {
+  case tooFarAway
+  case tooClose
+  public static func == (a: MobaiBiometric.MBDistanceError, b: MobaiBiometric.MBDistanceError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public enum MBPositionalError {
+  case tooFarUp
+  case tooFarDown
+  case tooFarLeft
+  case tooFarRight
+  case notFound
+  public static func == (a: MobaiBiometric.MBPositionalError, b: MobaiBiometric.MBPositionalError) -> Swift.Bool
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct MBFaceGeometryModel {
+  public let boundingBox: CoreFoundation.CGRect
+  public let roll: Swift.Double
+  public var pitch: Swift.Double?
+  public let yaw: Swift.Double
 }
 public struct MBFaceStatusTexts {
   public var faceTooFarAway: Swift.String
@@ -182,6 +251,7 @@ public struct MBFaceStatusTexts {
   public var faceNotFound: Swift.String
   public var tooManyFaces: Swift.String
   public var validFace: Swift.String
+  public var outsideROI: Swift.String
   public init(faceTooFarAway: Swift.String = "Face too far away", faceTooFarUp: Swift.String = "Face too far up", faceTooFarDown: Swift.String = "Face too far down", faceTooFarLeft: Swift.String = "Face too far left", faceTooFarRight: Swift.String = "Face too far right", faceTooClose: Swift.String = "Face too close", faceNotFound: Swift.String = "Face not found", tooManyFaces: Swift.String = "Too many faces", validFace: Swift.String = "Valid face")
   public init(dictionaryOptions: Foundation.NSDictionary)
 }
@@ -197,14 +267,14 @@ public enum MBPreviewScaleType : Swift.Int {
     get
   }
 }
-public enum MBTargetResolution : Swift.String {
+public enum MBTargetResolution : Swift.Int {
+  case qHD960x540
   case hd1280x720
   case hd1920x1080
   case hd4K3840x2160
-  case qHD960x540
-  public init?(rawValue: Swift.String)
-  public typealias RawValue = Swift.String
-  public var rawValue: Swift.String {
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
     get
   }
 }
@@ -216,8 +286,9 @@ public struct MBUIOptions {
   public var showFaceStatusLabel: Swift.Bool
   public var showCountdownTimerLabel: Swift.Bool
   public var presentedDismissButtonEnabled: Swift.Bool
+  public var shouldShowOverlayFaceView: Swift.Bool
   public var textLocalizations: MobaiBiometric.MBTextLocalizations
-  public init(showProgressBar: Swift.Bool = false, showFaceStatusLabel: Swift.Bool = false, showCountdownTimerLabel: Swift.Bool = false, presentedDismissButtonEnabled: Swift.Bool = false, textLocalizations: MobaiBiometric.MBTextLocalizations = .init())
+  public init(showProgressBar: Swift.Bool = false, showFaceStatusLabel: Swift.Bool = false, showCountdownTimerLabel: Swift.Bool = false, presentedDismissButtonEnabled: Swift.Bool = false, shouldShowOverlayFaceView: Swift.Bool = true, textLocalizations: MobaiBiometric.MBTextLocalizations = .init())
   public init(dictionaryOptions: Foundation.NSDictionary)
 }
 extension UIKit.UIColor {
@@ -227,6 +298,7 @@ extension UIKit.UIColor {
 extension UIKit.UIView {
   @_Concurrency.MainActor(unsafe) public func fillSuperView()
   @_Concurrency.MainActor(unsafe) public func anchorTo(top: UIKit.NSLayoutYAxisAnchor? = nil, leading: UIKit.NSLayoutXAxisAnchor? = nil, bottom: UIKit.NSLayoutYAxisAnchor? = nil, trailing: UIKit.NSLayoutXAxisAnchor? = nil, padding: UIKit.UIEdgeInsets = .zero, size: CoreFoundation.CGSize = .zero, centerX: UIKit.NSLayoutXAxisAnchor? = nil, centerXConstant: CoreFoundation.CGFloat? = nil, centerY: UIKit.NSLayoutYAxisAnchor? = nil, centerYConstant: CoreFoundation.CGFloat? = nil)
+  @_Concurrency.MainActor(unsafe) public func anchorToConstraints(top: UIKit.NSLayoutYAxisAnchor? = nil, leading: UIKit.NSLayoutXAxisAnchor? = nil, bottom: UIKit.NSLayoutYAxisAnchor? = nil, trailing: UIKit.NSLayoutXAxisAnchor? = nil, padding: UIKit.UIEdgeInsets = .zero, size: CoreFoundation.CGSize = .zero, centerX: UIKit.NSLayoutXAxisAnchor? = nil, centerXConstant: CoreFoundation.CGFloat? = nil, centerY: UIKit.NSLayoutYAxisAnchor? = nil, centerYConstant: CoreFoundation.CGFloat? = nil) -> [UIKit.NSLayoutConstraint]
 }
 extension UIKit.UIViewController {
   @_Concurrency.MainActor(unsafe) public func presentAlertWithTitle(title: Swift.String, message: Swift.String, options: Swift.String..., completion: @escaping (Swift.Int) -> Swift.Void)
@@ -237,11 +309,20 @@ extension MobaiBiometric.MBCaptureSessionError : Swift.RawRepresentable {}
 extension MobaiBiometric.MBCameraPosition : Swift.Equatable {}
 extension MobaiBiometric.MBCameraPosition : Swift.Hashable {}
 extension MobaiBiometric.MBCameraPosition : Swift.RawRepresentable {}
+extension MobaiBiometric.MBCaptureConstraints : Swift.Equatable {}
+extension MobaiBiometric.MBCaptureConstraints : Swift.Hashable {}
+extension MobaiBiometric.MBCaptureConstraints : Swift.RawRepresentable {}
 extension MobaiBiometric.MBCaptureSessionStatus : Swift.Hashable {}
 extension MobaiBiometric.MBFaceStatus : Swift.Hashable {}
 extension MobaiBiometric.MBFaceStatus : Swift.RawRepresentable {}
 extension MobaiBiometric.MBCaptureState : Swift.Equatable {}
 extension MobaiBiometric.MBCaptureState : Swift.Hashable {}
+extension MobaiBiometric.MBPoseError : Swift.Equatable {}
+extension MobaiBiometric.MBPoseError : Swift.Hashable {}
+extension MobaiBiometric.MBDistanceError : Swift.Equatable {}
+extension MobaiBiometric.MBDistanceError : Swift.Hashable {}
+extension MobaiBiometric.MBPositionalError : Swift.Equatable {}
+extension MobaiBiometric.MBPositionalError : Swift.Hashable {}
 extension MobaiBiometric.MBPreviewScaleType : Swift.Equatable {}
 extension MobaiBiometric.MBPreviewScaleType : Swift.Hashable {}
 extension MobaiBiometric.MBPreviewScaleType : Swift.RawRepresentable {}

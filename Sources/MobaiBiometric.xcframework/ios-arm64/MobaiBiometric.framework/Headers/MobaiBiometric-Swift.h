@@ -356,6 +356,8 @@ SWIFT_CLASS("_TtC14MobaiBiometric20MBCaptureSessionView")
 
 
 
+
+
 @class NSString;
 @class NSBundle;
 
@@ -363,12 +365,12 @@ SWIFT_CLASS("_TtC14MobaiBiometric30MBCaptureSessionViewController")
 @interface MBCaptureSessionViewController : UIViewController
 - (void)viewDidLoad;
 - (void)viewDidAppear:(BOOL)animated;
-- (void)viewWillLayoutSubviews;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)viewWillAppear:(BOOL)animated;
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder SWIFT_UNAVAILABLE;
 - (nonnull instancetype)initWithNibName:(NSString * _Nullable)nibNameOrNil bundle:(NSBundle * _Nullable)nibBundleOrNil SWIFT_UNAVAILABLE;
 @end
+
 
 
 /// An enumeration representing different face statuses related to positioning and recognition.
