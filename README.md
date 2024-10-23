@@ -11,11 +11,4 @@ Then you can use the:
 ```
 import MobaiBiometric 
 ```
-For using serialization function you need to call: 
-```
-import MobaiBiometricSPM
-```
-And then you can use MBCaptureSessionResultAdapter: 
-```
-MBCaptureSessionResultAdapter.serializedData(result: MBCaptureSessionResult)
-```
+

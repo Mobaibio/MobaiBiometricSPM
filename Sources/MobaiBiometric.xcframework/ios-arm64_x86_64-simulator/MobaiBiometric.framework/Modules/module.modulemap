@@ -1,11 +1,6 @@
 framework module MobaiBiometric {
-  umbrella header "MobaiBiometric-umbrella.h"
-
+  umbrella header "MobaiBiometric.h"
   export *
-  module * { export * }
-}
 
-module MobaiBiometric.Swift {
-  header "MobaiBiometric-Swift.h"
-  requires objc
+  module * { export * }
 }

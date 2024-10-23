@@ -4,18 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "MobaiBiometricSPM",
+    name: "MobaiBiometric",
     products: [
         .library(
-            name: "MobaiBiometricSPM",
-            targets: ["MobaiBiometricSPM", "MobaiBiometric"]),
+            name: "MobaiBiometric",
+            targets: ["MobaiBiometric", "MobaiBiometricCore"]),
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.0.0"),
     ],
     targets: [
         .target(
-            name: "MobaiBiometricSPM",
+            name: "MobaiBiometricCore",
             dependencies: [
                 .target(name: "MobaiBiometric"),
                 .product(name: "SwiftProtobuf", package: "swift-protobuf")
