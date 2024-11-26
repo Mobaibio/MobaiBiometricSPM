@@ -1,4 +1,4 @@
-// swift-tools-version: 5.8
+// swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
 
 import PackageDescription
@@ -8,7 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "MobaiBiometric",
-            targets: ["MobaiBiometricCore"]
+            targets: ["MobaiBiometric", "MobaiBiometricCore"]
         ),
     ],
     dependencies: [
@@ -20,8 +20,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "MobaiBiometric",
-            url: "https://downloads.mobai.dev/releases/ios/2.1.2-beta.1/MobaiBiometric.xcframework.zip",
-            checksum: "09d7cb61ccbad59d237a9a0b722c5c13035da3bf1432b6acdf0ad5b8f1d01a86"
+            url: "https://downloads.mobai.dev/releases/ios/2.1.2-beta.2/MobaiBiometric.xcframework.zip",
+            checksum: "44e1b5fc954415c6f0901fc61411ef1ad13c7999d43a8d2a93a0d62260dcdfab"
         ),
         .target(
             name: "MobaiBiometricCore",
@@ -29,7 +29,7 @@ let package = Package(
                 "MobaiBiometric",
                 .product(name: "SwiftProtobuf", package: "swift-protobuf")
             ],
-            path: "Sources/MobaiBiometricCore" // or specify your custom path
+            path: "Sources/MobaiBiometricCore"
         ),
     ]
 )
