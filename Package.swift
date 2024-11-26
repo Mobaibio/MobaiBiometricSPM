@@ -8,6 +8,7 @@ let package = Package(
     products: [
         .library(
             name: "MobaiBiometric",
+            type: .dynamic,
             targets: ["MobaiBiometricWrapper"]
         ),
     ],
