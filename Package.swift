@@ -13,7 +13,6 @@ let package = Package(
     ],
     dependencies: [
         .package(
-            name: "SwiftProtobuf",
             url: "https://github.com/apple/swift-protobuf.git",
             "1.19.0" ..< "2.0.0"
         ),
@@ -23,7 +22,7 @@ let package = Package(
             name: "MobaiBiometricWrapper",
             dependencies: [
                 .target(name: "MobaiBiometric"),
-                "SwiftProtobuf"
+                .product(name: "SwiftProtobuf", package: "swift-protobuf"),
             ],
             path: "Sources/MobaiBiometricCore"
         ),
