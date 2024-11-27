@@ -1,14 +1,17 @@
-# React Native module for Mobai Biometric SDK
+# Swift Package for MobaiBiometric iOS SDK
 
-SPM version of Mobai birometrics 
-# Installation
-You can add MobaiBiometricd to an Xcode project by adding it as a package dependency.
+This project contains Swift Package for MobaiBiometric ios SDK
+
+## Installation
+
+Integrate MobaiBiometric SDK by adding the package as a dependency to your Xcode project 
 
 1. From the File menu, select Add Packages...
 2. Enter "https://github.com/Mobaibio/MobaiBiometricSPM" into the package repository URL text field
 
-Then you can use the:
-```
+Import the package
+
+```swift
 import MobaiBiometric 
 ```
 
