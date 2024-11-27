@@ -4,25 +4,18 @@
 import PackageDescription
 
 let package = Package(
-    name: "MobaiBiometricSPM",
+    name: "MobaiBiometric",
     products: [
         .library(
-            name: "MobaiBiometricSPM",
-            targets: ["MobaiBiometricSPM", "MobaiBiometric"]),
-    ],
-    dependencies: [
-        .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.0.0"),
+            name: "MobaiBiometric",
+            targets: ["MobaiBiometric"]),
     ],
     targets: [
-        .target(
-            name: "MobaiBiometricSPM",
-            dependencies: [
-                .target(name: "MobaiBiometric"),
-                .product(name: "SwiftProtobuf", package: "swift-protobuf")
-            ]),
         .binaryTarget(
             name: "MobaiBiometric",
-            path: "./Sources/MobaiBiometric.xcframework"
+            url: "https://downloads.mobai.dev/releases/ios/2.1.2-beta.3/MobaiBiometric.xcframework.zip",
+            checksum: "de4ce2b604eecfda9b435c6679ae42ffc192edcb055c8bb0051c71a4c3cbd405"
+
         ),
     ]
 )
