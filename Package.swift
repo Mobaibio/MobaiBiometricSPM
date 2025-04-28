@@ -13,8 +13,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "MobaiBiometric",
-            url: "https://downloads.mobai.dev/releases/ios/2.2.0/MobaiBiometric.xcframework.zip",
-            checksum: "2651c51a5083067de35ca9d027a9898d1330dbe43c63eaa69409b3fb4debee29"
+            url: "https://downloads.mobai.dev/releases/ios/2.2.1/MobaiBiometric.xcframework.zip",
+            checksum: "68cb9b973dff72c2f3754b77238ba164426ff510f844b30eb12c770740f3b55e"
 
         ),
     ]
