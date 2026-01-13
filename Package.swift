@@ -19,6 +19,9 @@ let package = Package(
             name: "MobaiDocument",
             targets: ["MobaiDocument"]),
     ],
+    dependencies: [
+        .package(url: "https://github.com/innovatrics/dot-ios-sdk-spm.git", exact: "8.17.0")
+    ],
     targets: [
         .binaryTarget(
             name: "MobaiBiometric",
@@ -26,9 +29,20 @@ let package = Package(
             checksum: "ca30db0b12bcf807b858ed65ed3366af9ef0fdd681a57b748f9c30d761f4116c"
         ),
         .binaryTarget(
+            // The underlying XCFramework module is named MobaiNfc
+            name: "MobaiNfc",
+            path: "Frameworks/MobaiNfc.xcframework"
+        ),
+        .target(
+            // Wrapper module. Consumers should `import MobaiNFC`.
+            // This target ensures Dot* modules are available before importing the binary.
             name: "MobaiNFC",
-            url: "https://downloads.mobai.dev/releases/ios/1.1.0/MobaiNfc.xcframework.zip",
-            checksum: "2a917eac0117fa88b060e702ffefd5d3ea26b5c4ef3a5e47c3db19caa32254fa"
+            dependencies: [
+                "MobaiNfc",
+                .product(name: "DotNfc", package: "dot-ios-sdk-spm"),
+                .product(name: "DotCore", package: "dot-ios-sdk-spm"),
+                .product(name: "DotDocumentCommons", package: "dot-ios-sdk-spm"),
+            ]
         ),
         .binaryTarget(
             name: "MobaiDocument",
