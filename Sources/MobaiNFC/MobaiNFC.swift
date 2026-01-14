@@ -1,4 +1,4 @@
-// Wrapper module that makes Dot* dependencies available and re-exports the MobaiNfc binary module.
-// This ensures DotNfc (and its transitive dependencies) are resolved before importing the binary.
+// Wrapper module that ensures Dot* dependencies are resolved.
+// Consumers should import MobaiNfc directly (the binary product), not this wrapper.
+// This wrapper exists only to ensure DotNfc dependencies are available in the package graph.
 import DotNfc
-@_exported import MobaiNfc
