@@ -16,6 +16,9 @@ let package = Package(
             name: "MobaiNFC",
             targets: ["MobaiNFC"]),
         .library(
+            name: "MobaiNfc",
+            targets: ["MobaiNfc"]),
+        .library(
             name: "MobaiDocument",
             targets: ["MobaiDocument"]),
     ],
