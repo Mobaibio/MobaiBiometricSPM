@@ -37,12 +37,12 @@ let package = Package(
             path: "Frameworks/MobaiNfc.xcframework"
         ),
         .target(
-            // Wrapper module that ensures Dot* dependencies are resolved in the package graph.
-            // Consumers should import MobaiNfc directly (the binary product), not this wrapper.
-            // This wrapper exists only to ensure DotNfc dependencies are available.
+            // Wrapper module that ensures Dot* dependencies are resolved and re-exports MobaiNfc.
+            // Consumers should add both MobaiNFC (wrapper) and MobaiNfc (binary) as dependencies,
+            // then import MobaiNFC to get access to MobaiNfc symbols.
             name: "MobaiNFC",
             dependencies: [
-                "MobaiNfc", // Depend on binary to ensure it's built, but don't re-export
+                "MobaiNfc", // Binary target that gets re-exported
                 .product(name: "DotNfc", package: "dot-ios-sdk-spm"),
             ]
         ),
