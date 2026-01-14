@@ -40,8 +40,6 @@ let package = Package(
             dependencies: [
                 "MobaiNfc",
                 .product(name: "DotNfc", package: "dot-ios-sdk-spm"),
-                .product(name: "DotCore", package: "dot-ios-sdk-spm"),
-                .product(name: "DotDocumentCommons", package: "dot-ios-sdk-spm"),
             ]
         ),
         .binaryTarget(
