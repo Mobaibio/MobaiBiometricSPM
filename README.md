@@ -15,16 +15,16 @@ Integrate MobaiBiometric SDK by adding the package as a dependency to your Xcode
 
 1. Add Package: `https://github.com/innovatrics/dot-ios-sdk-spm.git`
 2. Select version: `8.17.0`
-3. In your target's dependencies, ensure the following products are linked:
-   - For MobaiNFC: `DotNfc`
-   - For MobaiDocument: `DotDocument`
+3. Add the Mobai package product:
+   - Use **only** the `MobaiNFC` product.
+   - In code, `import MobaiNFC`.
 
 ## Usage
 
 Import the package
 
 ```swift
-import MobaiBiometric 
+import MobaiBiometric
 import MobaiNFC      // Requires dot-ios-sdk-spm dependency
 import MobaiDocument // Requires dot-ios-sdk-spm dependency
 ```
