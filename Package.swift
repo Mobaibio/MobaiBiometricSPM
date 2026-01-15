@@ -17,7 +17,7 @@ let package = Package(
             name: "MobaiNFC",
             targets: [
                 "MobaiNfc",
-                "MobaiNfcDeps",
+                "_MobaiNfcDeps",
             ]),
         .library(
             name: "MobaiDocument",
@@ -36,12 +36,11 @@ let package = Package(
             checksum: "ca30db0b12bcf807b858ed65ed3366af9ef0fdd681a57b748f9c30d761f4116c"
         ),
         .binaryTarget(
-            // The underlying XCFramework module is named MobaiNfc
             name: "MobaiNfc",
             path: "Frameworks/MobaiNfc.xcframework"
         ),
         .target(
-            name: "MobaiNfcDeps",
+            name: "_MobaiNfcDeps",
             dependencies: [
                 .product(name: "DotNfc", package: "dot-ios-sdk-spm")
             ]
