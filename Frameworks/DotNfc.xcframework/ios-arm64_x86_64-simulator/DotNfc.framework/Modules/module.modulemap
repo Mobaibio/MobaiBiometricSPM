@@ -1,0 +1,11 @@
+framework module DotNfc {
+  umbrella header "DotNfc.h"
+  export *
+
+  module * { export * }
+}
+
+module DotNfc.Swift {
+  header "DotNfc-Swift.h"
+  requires objc
+}

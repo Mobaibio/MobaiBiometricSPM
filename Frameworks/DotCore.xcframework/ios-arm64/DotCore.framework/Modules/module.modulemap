@@ -1,0 +1,11 @@
+framework module DotCore {
+  umbrella header "DotCore.h"
+  export *
+
+  module * { export * }
+}
+
+module DotCore.Swift {
+  header "DotCore-Swift.h"
+  requires objc
+}

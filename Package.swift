@@ -15,14 +15,29 @@ let package = Package(
         .library(
             // Publish NFC as a single product (wrapper + binary).
             name: "MobaiNFC",
-            targets: ["MobaiNFC", "MobaiNfc"]),
+            targets: [
+                "MobaiNfc",
+                "DotCore",
+                "DotDocumentCommons",
+                "DotNfc",
+                "DotOpenSSL",
+                "DotSerialization",
+                "DotProtocolBuffers",
+            ]),
         .library(
             name: "MobaiDocument",
-            targets: ["MobaiDocument"]),
+            targets: [
+                "MobaiDocument",
+                "DotDocument",
+                "DotCore",
+                "DotSerialization",
+                "DotCamera",
+                "DotProtocolBuffers",
+                "DotDocumentCommons",
+                "DotCapture",
+            ]),
     ],
-    dependencies: [
-        .package(url: "https://github.com/innovatrics/dot-ios-sdk-spm.git", exact: "8.17.0")
-    ],
+    dependencies: [],
     targets: [
         .binaryTarget(
             name: "MobaiBiometric",
@@ -34,14 +49,41 @@ let package = Package(
             name: "MobaiNfc",
             path: "Frameworks/MobaiNfc.xcframework"
         ),
-        .target(
-            // Wrapper module that ensures Dot* dependencies are resolved and re-exports MobaiNfc.
-            // Consumers add only the MobaiNFC product and `import MobaiNFC`.
-            name: "MobaiNFC",
-            dependencies: [
-                "MobaiNfc",
-                .product(name: "DotNfc", package: "dot-ios-sdk-spm"),
-            ]
+        .binaryTarget(
+            name: "DotCore",
+            path: "Frameworks/DotCore.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotDocumentCommons",
+            path: "Frameworks/DotDocumentCommons.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotDocument",
+            path: "Frameworks/DotDocument.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotCamera",
+            path: "Frameworks/DotCamera.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotCapture",
+            path: "Frameworks/DotCapture.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotNfc",
+            path: "Frameworks/DotNfc.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotOpenSSL",
+            path: "Frameworks/DotOpenSSL.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotSerialization",
+            path: "Frameworks/DotSerialization.xcframework"
+        ),
+        .binaryTarget(
+            name: "DotProtocolBuffers",
+            path: "Frameworks/DotProtocolBuffers.xcframework"
         ),
         .binaryTarget(
             name: "MobaiDocument",

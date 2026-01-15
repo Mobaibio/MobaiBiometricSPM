@@ -1,0 +1,6 @@
+framework module DotOpenSSL {
+  umbrella header "DotOpenSSL.h"
+
+  export *
+  module * { export * }
+}

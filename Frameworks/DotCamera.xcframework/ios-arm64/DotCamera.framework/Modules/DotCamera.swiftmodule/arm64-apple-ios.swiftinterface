@@ -1,0 +1,58 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target arm64-apple-ios12.0 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name DotCamera
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import AVFoundation
+import CoreImage
+@_exported import DotCamera
+import DotCore
+import DotSerialization
+import Foundation
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc(DOTCameraPreviewScaleType) public enum CameraPreviewScaleType : Swift.Int, Swift.CustomStringConvertible {
+  case fit
+  case fill
+  public var native: AVFoundation.AVLayerVideoGravity {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+public protocol VideoRecordingHandler : AnyObject {
+  var onRecordingFinished: ((Foundation.Data?, (any Swift.Error)?) -> Swift.Void)? { get set }
+  @discardableResult
+  func startRecording() -> Swift.Bool
+  @discardableResult
+  func stopRecording() -> Swift.Bool
+}
+@objc(DOTCameraFacing) public enum CameraFacing : Swift.Int, Swift.CustomStringConvertible {
+  case front
+  case back
+  public var native: AVFoundation.AVCaptureDevice.Position {
+    get
+  }
+  public var description: Swift.String {
+    get
+  }
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+extension DotCamera.CameraPreviewScaleType : Swift.Equatable {}
+extension DotCamera.CameraPreviewScaleType : Swift.Hashable {}
+extension DotCamera.CameraPreviewScaleType : Swift.RawRepresentable {}
+extension DotCamera.CameraFacing : Swift.Equatable {}
+extension DotCamera.CameraFacing : Swift.Hashable {}
+extension DotCamera.CameraFacing : Swift.RawRepresentable {}

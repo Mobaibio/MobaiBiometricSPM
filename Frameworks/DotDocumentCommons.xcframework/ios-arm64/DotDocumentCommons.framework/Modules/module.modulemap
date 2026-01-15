@@ -1,0 +1,11 @@
+framework module DotDocumentCommons {
+  umbrella header "DotDocumentCommons.h"
+  export *
+
+  module * { export * }
+}
+
+module DotDocumentCommons.Swift {
+  header "DotDocumentCommons-Swift.h"
+  requires objc
+}

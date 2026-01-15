@@ -1,0 +1,11 @@
+framework module DotCapture {
+  umbrella header "DotCapture.h"
+  export *
+
+  module * { export * }
+}
+
+module DotCapture.Swift {
+  header "DotCapture-Swift.h"
+  requires objc
+}
