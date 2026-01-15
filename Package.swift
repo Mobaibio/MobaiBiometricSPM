@@ -13,7 +13,6 @@ let package = Package(
             name: "MobaiBiometric",
             targets: ["MobaiBiometric"]),
         .library(
-            // Publish NFC as a single product (wrapper + binary).
             name: "MobaiNFC",
             targets: [
                 "MobaiNfc",
@@ -47,7 +46,8 @@ let package = Package(
         .binaryTarget(
             // The underlying XCFramework module is named MobaiNfc
             name: "MobaiNfc",
-            path: "Frameworks/MobaiNfc.xcframework"
+            url: "https://downloads.mobai.dev/releases/ios/1.1.0/MobaiNfc.xcframework.zip",
+            checksum: "2a917eac0117fa88b060e702ffefd5d3ea26b5c4ef3a5e47c3db19caa32254fa"
         ),
         .binaryTarget(
             name: "DotCore",
