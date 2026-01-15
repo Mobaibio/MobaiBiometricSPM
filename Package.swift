@@ -37,7 +37,8 @@ let package = Package(
         ),
         .binaryTarget(
             name: "MobaiNfc",
-            path: "Frameworks/MobaiNfc.xcframework"
+            url: "https://downloads.mobai.dev/releases/ios/1.1.0/MobaiNfc.xcframework.zip",
+            checksum: "2a917eac0117fa88b060e702ffefd5d3ea26b5c4ef3a5e47c3db19caa32254fa"
         ),
         .target(
             name: "_MobaiNfcDeps",

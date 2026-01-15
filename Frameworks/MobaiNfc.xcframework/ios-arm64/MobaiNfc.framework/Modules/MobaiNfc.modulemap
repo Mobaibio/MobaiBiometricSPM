@@ -1,4 +1,0 @@
-module MobaiNfc {
-header "MobaiNfc-Swift.h"
-export *
-}

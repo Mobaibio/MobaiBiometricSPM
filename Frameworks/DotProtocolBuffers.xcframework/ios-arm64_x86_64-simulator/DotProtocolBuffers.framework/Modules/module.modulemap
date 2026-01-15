@@ -1,6 +1,0 @@
-framework module DotProtocolBuffers {
-  umbrella header "DotProtocolBuffers.h"
-  export *
-
-  module * { export * }
-}
